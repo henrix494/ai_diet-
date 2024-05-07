@@ -2,7 +2,11 @@ import React from "react";
 import { fetchMutation, fetchQuery } from "convex/nextjs";
 import { Id } from "@/convex/_generated/dataModel";
 import { api } from "@/convex/_generated/api";
-export default async function page({ params }: { params: { id: string } }) {
+import type { Metadata, ResolvingMetadata } from "next";
+export default async function page(
+  { params }: { params: { id: string } },
+  parent: ResolvingMetadata
+) {
   const { id } = params;
 
   const recepit = await fetchQuery(api.tasks.getCurrentRecipe, {
@@ -24,4 +28,26 @@ export default async function page({ params }: { params: { id: string } }) {
       })}
     </div>
   );
+}
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  const id = params.id;
+
+  // fetch data
+  const recepit = await fetchQuery(api.tasks.getCurrentRecipe, {
+    recipeId: id,
+  });
+
+  // optionally access and extend (rather than replace) parent metadata
+
+  return {
+    title: recepit[0].title,
+  };
 }
