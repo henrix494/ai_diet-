@@ -2,6 +2,7 @@ import ChatHero from "@/components/ChatHero/ChatHero";
 import ChatHeroMobile from "@/components/ChatHero/ChatHeroMobile";
 import Link from "next/link";
 export default function Hero() {
+  console.log(test);
   return (
     <div className=" relative ">
       <div className=" flex justify-center flex-col items-center  text-9xl font-bold mt-20 max-lg:text-2xl">
