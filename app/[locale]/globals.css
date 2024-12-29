@@ -69,3 +69,20 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
+
+.testAni {
+  animation-name: upSlow;
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier();
+}
+
+@keyframes upSlow {
+  0% {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

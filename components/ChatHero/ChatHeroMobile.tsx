@@ -26,7 +26,7 @@ export default function ChatHeroMobile({ locale }: { locale: string }) {
   //300
   return (
     <div
-      className={`flex justify-center mt-20 lg:hidden  relative  overflow-hidden ${isReadMoreClick ? "h-max" : "h-[410px]"} `}
+      className={`flex testAni justify-center mt-20 lg:hidden  relative  overflow-hidden ${isReadMoreClick ? "h-max" : "h-[410px]"} `}
     >
       <div className={` bg-base-300 rounded-xl    w-screen h-[1100px]`}>
         <div className="chat chat-start">

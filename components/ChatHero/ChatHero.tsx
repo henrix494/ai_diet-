@@ -23,8 +23,8 @@ export default function ChatHero() {
   const typedAiText = useTypeWriter(writeAiText, 60);
 
   return (
-    <div className="flex justify-center mt-20 max-lg:hidden min-h-[570px]">
-      <div className="lg:w-[50vw] bg-base-300 rounded-xl p-6">
+    <div className="flex justify-center mt-20 max-lg:hidden min-h-[570px] shadow-2xl overflow-hidden ">
+      <div className="lg:w-[50vw] bg-base-300 rounded-xl p-6  shadow-2xl testAni">
         <div className="chat chat-start">
           <div className="chat-image avatar">
             <div className="w-10 rounded-full">

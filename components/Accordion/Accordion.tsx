@@ -9,6 +9,7 @@ import { deleteRecipeHandler } from "@/actions/delRecipe";
 import { Id } from "@/convex/_generated/dataModel";
 import { recipeTypes } from "@/actions/addRecipe";
 import { useTranslations } from "next-intl";
+import Share from "../sharing/Share";
 interface recipeTypeEach extends recipeTypes {
   userId: string;
   _creationTime: number;
@@ -62,7 +63,7 @@ export default function Accordion({ locale }: { locale: string }) {
           {filterRecipes?.map((item: recipeTypeEach, index: number) => (
             <div
               key={item._id}
-              className="bg-gray-800 shadow-lg rounded-lg overflow-hidden transition-transform  hover:shadow-2xl lg:w-[30vw] w-full h-max"
+              className="bg-gray-800 shadow-lg rounded-lg  transition-transform  hover:shadow-2xl lg:w-[30vw] w-full h-max"
             >
               {/* Accordion Header with Recipe Title */}
               <div className="flex justify-between items-center p-6 bg-gradient-to-r from-purple-700 via-pink-600 to-red-600 text-white text-xl font-bold">
@@ -137,14 +138,14 @@ export default function Accordion({ locale }: { locale: string }) {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-between p-6 border-t border-gray-700 bg-gray-800">
+              <div className="flex items-center justify-between p-6 border-t border-gray-700 bg-gray-800 ">
                 <button
                   onClick={() => openModal(item.title, item._id)}
                   className="bg-red-600 text-white py-3 px-6 rounded-md shadow-md hover:bg-red-700 transition font-semibold"
                 >
                   {t("delete")}
                 </button>
-
+                <Share id={item._id} />
                 <button
                   disabled={isFavLoading}
                   onClick={() => addToFavHanlder(item._id)}
