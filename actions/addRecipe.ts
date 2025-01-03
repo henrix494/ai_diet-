@@ -3,7 +3,10 @@
 import { fetchMutation } from "convex/nextjs";
 import { NextResponse } from "next/server";
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 export interface recipeTypes {
+  _id: Id<"recipes">;
+  _creationTime: number;
   title: string;
   ingredients: { name: string; quantity: string }[];
   instructions: string[];

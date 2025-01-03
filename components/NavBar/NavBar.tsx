@@ -11,10 +11,10 @@ export default function NavBar() {
 
   return (
     <div className=" z-[10] relative  ">
-      <div className="navbar bg-base-300 lg:px-20 ">
+      <div className="navbar bg-base-300 lg:px-[200px] h-20">
         <div className="flex-1 ">
           <Link href={"/"}>
-            <p className="btn btn-ghost text-xl">{t("title")}</p>
+            <p className="btn btn-ghost text-xl ">{t("title")}</p>
           </Link>
           <label className="swap swap-rotate mr-10">
             <input
@@ -48,14 +48,16 @@ export default function NavBar() {
           </Link>
           <SignedOut>
             <Link href={"/sign-in"}>
-              <button className=" btn btn-accent">{t("sign-in")}</button>
+              <button className=" btn btn-accent min-h-10 h-10">
+                {t("sign-in")}
+              </button>
             </Link>
           </SignedOut>
 
           <SignedIn>
             <div className=" text-xl flex gap-20 max-lg:hidden">
               <Link href={"/dashboard"}>
-                <p className="btn btn-ghost text-xl">{t("recipes")}</p>
+                <p className="btn btn-ghost text-xl ">{t("recipes")}</p>
               </Link>
               <Link href={"/favorite"}>
                 <p className="btn btn-ghost text-xl">{t("favorites")}</p>

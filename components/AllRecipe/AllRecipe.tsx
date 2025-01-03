@@ -1,12 +1,23 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Link from "next/link";
+import { recipeTypes } from "@/actions/addRecipe";
 
 export default function AllRecipe() {
   const allRecipes = useQuery(api.tasks.getAllRecipe);
-
+  const [RecipesState, setRecipesState] = useState<recipeTypes[]>();
+  useEffect(() => {
+    setRecipesState(allRecipes as recipeTypes[]);
+    let seend = new Set();
+    let filtered = allRecipes?.filter((item) => {
+      const duplicate = seend.has(item.title);
+      seend.add(item.title);
+      return !duplicate;
+    });
+    setRecipesState(filtered as recipeTypes[]);
+  }, [allRecipes]);
   if (!allRecipes || allRecipes.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-900 to-black">
@@ -20,7 +31,7 @@ export default function AllRecipe() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 via-purple-900 to-black p-10">
       <div className="flex flex-wrap justify-center gap-8">
-        {allRecipes.map((item) => {
+        {RecipesState?.map((item) => {
           const date = new Date(item._creationTime);
           const month = date.getMonth() + 1;
           const day = date.getDate();

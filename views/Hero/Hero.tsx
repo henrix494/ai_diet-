@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 export default function Hero({ locale }: { locale: string }) {
   const t = useTranslations("Hero");
-
+  // TO DO
+  //Fix responsive from 1026 to 1400
   return (
     <div className=" relative overflow-x-hidden ">
-      <div className="rectangle max-lg:w-[150px] max-lg:h-[150px]"></div>
-      <div className=" flex justify-center flex-col items-center  text-9xl font-bold mt-20 max-lg:text-2xl">
+      <div className="rectangle max-lg:w-[150px] max-lg:h-[150px] "></div>
+      <div className=" flex justify-center flex-col items-center   font-bold mt-20 max-lg:text-2xl  min-[1023px]:text-7xl  ">
         <h2 className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 text-transparent bg-clip-text">
           {t("title.main")}
         </h2>
