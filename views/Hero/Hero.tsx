@@ -24,7 +24,7 @@ export default function Hero({ locale }: { locale: string }) {
           </button>
         </Link>
       </div>
-      <ChatHero />
+      <ChatHero locale={locale}/>
       <ChatHeroMobile locale={locale} />
     </div>
   );

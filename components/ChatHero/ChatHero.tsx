@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { RootState } from "@/lib/store";
 import { useTypeWriter } from "@/hooks/useTypeWriter";
 import { useTranslations } from "next-intl";
-export default function ChatHero() {
+export default function ChatHero({ locale }: { locale: string }) {
   const t = useTranslations("Hero");
   const userText = t("userText");
   const lastText = t("botText");
@@ -54,7 +54,8 @@ export default function ChatHero() {
             <time className="text-xs opacity-50"> 12:46</time>
           </div>
           <div
-            className="chat-bubble"
+            dir={locale === "en" ? "ltr" : "rtl"}
+            className="chat-bubble before:left-[1000px]"
             dangerouslySetInnerHTML={{
               __html: typedAiText || "...", // Show AI typing effect or placeholder
             }}

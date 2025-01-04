@@ -86,3 +86,16 @@
     transform: translateY(0px);
   }
 }
+
+.chat-bubble:before {
+    position: absolute;
+    bottom: 0px;
+    height: 0.75rem /* 12px */;
+    width: 0.75rem /* 12px */;
+    background-color: inherit;
+    content: "";
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    right: -10px !important;
+}
