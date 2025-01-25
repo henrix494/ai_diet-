@@ -6,14 +6,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*",
-        port: "",
-        pathname: "*",
-      },
-    ],
+    domains: ["avatars.githubusercontent.com", "m.media-amazon.com"],
   },
 };
 

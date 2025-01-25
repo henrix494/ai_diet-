@@ -14,7 +14,6 @@ export default function ConvexClientProvider({
   children: ReactNode;
   leng: string;
 }) {
-  console.log(leng);
   return (
     <ClerkProvider
       localization={leng === "en" ? enUS : heIL}

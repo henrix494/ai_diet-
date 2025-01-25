@@ -4,7 +4,6 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Link from "next/link";
 import { recipeTypes } from "@/actions/addRecipe";
-
 export default function AllRecipe() {
   const allRecipes = useQuery(api.tasks.getAllRecipe);
   const [RecipesState, setRecipesState] = useState<recipeTypes[]>();

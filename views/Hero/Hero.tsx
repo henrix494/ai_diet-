@@ -2,6 +2,7 @@ import ChatHero from "@/components/ChatHero/ChatHero";
 import ChatHeroMobile from "@/components/ChatHero/ChatHeroMobile";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import ChatHeroContainer from "@/components/ChatHero/ChatHeroContainer";
 export default function Hero({ locale }: { locale: string }) {
   const t = useTranslations("Hero");
   // TO DO
@@ -24,7 +25,7 @@ export default function Hero({ locale }: { locale: string }) {
           </button>
         </Link>
       </div>
-      <ChatHero />
+      <ChatHeroContainer locale={locale} />
       <ChatHeroMobile locale={locale} />
     </div>
   );

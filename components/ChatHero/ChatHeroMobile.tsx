@@ -23,7 +23,6 @@ export default function ChatHeroMobile({ locale }: { locale: string }) {
   const openFullTexthandler = () => {
     setIsReadMoreClick((prev) => !prev);
   };
-  //300
   return (
     <div
       className={`flex testAni justify-center mt-20 lg:hidden  relative  overflow-hidden ${isReadMoreClick ? "h-max" : "h-[410px]"} `}

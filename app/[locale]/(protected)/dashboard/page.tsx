@@ -4,6 +4,7 @@ import Accordion from "@/components/Accordion/Accordion";
 import { auth } from "@clerk/nextjs/server";
 
 import type { Metadata } from "next";
+import StatsContainer from "@/components/StatsCard/StatsContainer";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "מתכונים",
@@ -17,7 +18,7 @@ export default async function Page({ params }: { params: { locale: string } }) {
 
   return (
     <div className=" ">
-      <Stats />
+      <StatsContainer />
       <div className="border-b-2 border-[#f1f1f15b]">
         <Chat token={token} locale={locale} />
       </div>

@@ -3,6 +3,7 @@ import Card from "@/components/Card/Card";
 import { useTranslations } from "next-intl";
 export default function Explain() {
   const t = useTranslations("howToStart");
+  const keys = ["cardOne", "cardTwo", "cardThree", "cardFour"];
   return (
     <div className=" mt-[5%] ">
       <div>
@@ -11,26 +12,16 @@ export default function Explain() {
         </h2>
       </div>
       <div className="flex justify-around max-lg:flex-col items-center flex-wrap">
-        <Card
-          title={t("cardOne.title")}
-          explain={t("cardOne.explain")}
-          img="/steps/register.png"
-        />
-        <Card
-          title={t("cardTwo.title")}
-          explain={t("cardTwo.explain")}
-          img="/steps/ask.png"
-        />{" "}
-        <Card
-          title={t("cardThree.title")}
-          explain={t("cardThree.explain")}
-          img="/steps/thing.png"
-        />{" "}
-        <Card
-          title={t("cardFour.title")}
-          explain={t("cardFour.explain")}
-          img="/steps/food.png"
-        />
+        {keys.map((key) => {
+          return (
+            <Card
+              key={key}
+              title={t(`${key}.title`)}
+              explain={t(`${key}.explain`)}
+              img={`/steps/${key}.png`}
+            />
+          );
+        })}
       </div>
     </div>
   );
