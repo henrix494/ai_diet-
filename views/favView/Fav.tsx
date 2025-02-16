@@ -21,44 +21,7 @@ export default function Fav({ user }: Props) {
     await editFav(id);
   };
 
-  const startDraggingHandler = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault(); // Prevent unexpected behaviors on mouse down
-    setIsDragging(true);
-    setStartX(e.pageX - (ref.current?.offsetLeft ?? 0));
-    setScrollLeft(ref.current?.scrollLeft ?? 0);
-  };
-
-  const stopDraggingHandler = () => {
-    setIsDragging(false);
-  };
-
-  const draggingHandler = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isDragging || !ref.current) return;
-    const x = e.pageX - (ref.current?.offsetLeft ?? 0);
-    const walk = (x - startX) * 1.5; // Adjust scrolling speed if necessary
-    ref.current.scrollLeft = scrollLeft - walk;
-  };
-
   // Add event listeners to window for drag behavior
-  useEffect(() => {
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
-        requestAnimationFrame(() => draggingHandler(e as any));
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isDragging]);
 
   const FavRecipeElement = () => {
     const favRecipe = useQuery(api.tasks.getFavRecipe);
@@ -69,7 +32,7 @@ export default function Fav({ user }: Props) {
     return !favRecipe ? (
       <div>אין מועדפים</div>
     ) : (
-      <div className="mb-10">
+      <div className="mb-10 ">
         <div className="flex justify-center mb-8">
           <input
             type="text"
@@ -81,17 +44,15 @@ export default function Fav({ user }: Props) {
         </div>
 
         <div
-          className="flex lg:justify-around mb-10 gap-10 overflow-visible"
+          className="flex lg:justify-around mb-10 gap-10 flex-wrap"
           ref={ref}
-          onMouseDown={startDraggingHandler}
-          style={{ cursor: isDragging ? "grabbing" : "grab" }}
         >
           {filteredFav?.map((item: recipeTypes, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transition-transform lg:w-[50vw] max-lg:w-[100vw]"
+              className=" dark:bg-gray-800 p-6 rounded-lg shadow-lg transition-transform flex-wrap max-lg:w-[100vw] "
             >
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-center mb-4 ">
                 <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
                   {item.title}
                 </h2>

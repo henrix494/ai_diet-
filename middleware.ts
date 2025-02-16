@@ -16,3 +16,5 @@ export default clerkMiddleware(async (auth, req) => {
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|public|WhoAreWe|steps).*)", "/"],
 };
+
+//  req
