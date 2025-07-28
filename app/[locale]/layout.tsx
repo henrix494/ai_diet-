@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
 import ConvexClientProvider from "./ConvexClientProvider";
+import NavBarV2 from "@/V2/NavBarV2/NavBarV2";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,14 +28,9 @@ export default async function RootLayout({
   return (
     <NextIntlClientProvider messages={messages}>
       <ConvexClientProvider leng={locale}>
-        <html
-          lang={locale}
-          dir={locale === "he" ? "rlt" : "ltr"}
-          data-theme="dracula"
-          className="page "
-        >
+        <html lang={locale} dir={locale === "he" ? "rlt" : "ltr"}>
           <body className={inter.className + "relative"}>
-            <NavBar />
+            <NavBarV2 />
             {children}
           </body>
         </html>

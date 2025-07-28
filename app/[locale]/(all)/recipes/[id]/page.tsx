@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
+import { DataModel } from "@/convex/_generated/dataModel";
 
 export default function RecipePage() {
-  const [recipe, setRecipe] = useState<any[]>([]);
+  const [recipe, setRecipe] = useState<DataModel["recipes"]["document"][]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();

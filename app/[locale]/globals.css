@@ -70,10 +70,18 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .testAni {
-  animation-name: upSlow;
-  animation-duration: 0.8s;
-  animation-timing-function: cubic-bezier();
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 @keyframes upSlow {
@@ -85,4 +93,8 @@
     opacity: 1;
     transform: translateY(0px);
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }

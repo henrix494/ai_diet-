@@ -1,20 +1,49 @@
 import Image from "next/image";
+import { useRef, useEffect, useState } from "react";
+
 interface ChatHeroProps {
   writeUserText: string;
   typedAiText: string;
   locale?: string;
 }
+
 export default function ChatHero({
   writeUserText,
   typedAiText,
   locale,
 }: ChatHeroProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasAnimated]);
+
   return (
     <div
-      dir={`${locale === "he" ? "rtl" : "ltr"}`}
-      className={`flex justify-center mt-20 max-lg:hidden min-h-[570px] shadow-2xl overflow-hidden  `}
+      id="seeHowItWorks"
+      ref={ref}
+      dir={locale === "he" ? "rtl" : "ltr"}
+      className="flex justify-center mt-20 max-lg:hidden min-h-[570px] overflow-hidden"
     >
-      <div className="lg:w-[50vw] bg-base-300 rounded-xl p-6  shadow-2xl testAni">
+      <div
+        className={`lg:w-[50vw] bg-base-300 rounded-xl p-6 shadow-2xl transition-all duration-700 ${
+          hasAnimated ? "testAni" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="chat chat-start">
           <div className="chat-image avatar">
             <div className="w-10 rounded-full">
@@ -50,7 +79,7 @@ export default function ChatHero({
           <div
             className="chat-bubble"
             dangerouslySetInnerHTML={{
-              __html: typedAiText || "...", // Show AI typing effect or placeholder
+              __html: typedAiText || "...",
             }}
           ></div>
         </div>

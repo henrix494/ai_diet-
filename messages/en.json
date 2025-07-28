@@ -4,7 +4,8 @@
     "all-creations": "All Recipes",
     "sign-in": "Sign in",
     "recipes": "Recipes",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "home": "Home"
   },
   "Hero": {
     "title": { "main": " The perfect recipe with", "try": "Try now!" },
@@ -86,5 +87,35 @@
     "protein": "Protein",
     "fats": "Fats",
     "m": "G"
+  },
+  "v2": {
+    "hero-v2": {
+      "main-text": "Your Personal AI",
+      "sub-text": "Recipe Creator",
+      "paragraph": "Generate personalized recipes based on your preferences, dietary restrictions, and available ingredients.",
+      "orange-btn": "Start Generating Recipes",
+      "white-btn": "See How It Works"
+    },
+    "how-it-works-v2": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Register",
+        "description": "You can easily sign up by clicking on Sign In or Try Now."
+      },
+      "step2": {
+        "title": "Create Recipe",
+        "description": "Enter the name of a dish or ingredients you have at home."
+      },
+      "step3": {
+        "title": "Generating Recipe",
+        "description": "In just a few seconds after clicking Send, the AI will calculate the perfect recipe for you."
+      },
+      "step4": {
+        "title": "Prepare",
+        "description": "Now all that's left to do is just prepare the recipe!"
+      },
+      "chatTitle": "Chat with AI",
+      "chatDescription": "Ask the AI about recipes, ingredients, or cooking tips. Get instant answers and personalized suggestions."
+    }
   }
 }

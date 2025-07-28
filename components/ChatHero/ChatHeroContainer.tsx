@@ -9,7 +9,6 @@ export default function ChatHeroContainer({ locale }: { locale: string }) {
   const lastText = t("botText");
 
   const writeUserText = useTypeWriter(userText, 80);
-
   const [writeAiText, setWriteAiText] = useState("");
 
   useEffect(() => {

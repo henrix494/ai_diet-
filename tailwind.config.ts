@@ -8,6 +8,7 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./views/**/*.{js,ts,jsx,tsx,mdx}",
     "./services/**/*.{js,ts,jsx,tsx,mdx}",
+    "./V2/**/*.{js,ts,jsx,tsx,mdx}",
   ],
 
   theme: {
@@ -20,6 +21,6 @@ const config: Config = {
     },
   },
   plugins: [daisyui],
-  daisyui: { themes: ["dark", "valentine", "light", "dracula"] },
+  daisyui: { themes: ["light"] },
 };
 export default config;

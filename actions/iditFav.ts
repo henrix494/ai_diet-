@@ -2,7 +2,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import { fetchMutation, fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
-export const editFav = async (id: string) => {
+import { Id } from "@/convex/_generated/dataModel";
+export const editFav = async (id: Id<"recipes">) => {
   try {
     const currentRecipe = await fetchQuery(api.tasks.getCurrentRecipe, {
       recipeId: id,
@@ -13,7 +14,7 @@ export const editFav = async (id: string) => {
     }
     const updatedIsFavorite = !currentRecipe[0].isFavorite;
     await fetchMutation(api.tasks.EditFav, {
-      recipeId: id as any,
+      recipeId: id,
       stats: updatedIsFavorite,
     });
   } catch (error) {
