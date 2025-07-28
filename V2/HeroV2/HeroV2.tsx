@@ -23,12 +23,12 @@ const HeroV2 = () => {
           </p>
         </div>
         <div className="flex flex-col lg:flex-row justify-center items-center mt-6 text-lg lg:text-xl gap-4">
-          <button className="px-6 py-3 bg-orange-500 text-white border border-gray-300 rounded-lg shadow-md hover:bg-orange-600 transition-all">
-            {t("orange-btn")}
-          </button>
-          <Link href="#seeHowItWorks">
-            <button className=" px-6 py-3 bg-white text-black rounded-lg shadow-md hover:bg-gray-100 transition-all">
-              {t("white-btn")}
+          <Link
+            href="/sign-in"
+            className="px-6 py-3  text-white rounded-lg shadow-md  transition-all"
+          >
+            <button className="px-6 py-3 bg-orange-500 text-white border border-gray-300 rounded-lg shadow-md hover:bg-orange-600 transition-all">
+              {t("orange-btn")}
             </button>
           </Link>
         </div>

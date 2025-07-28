@@ -86,7 +86,8 @@
     "carbs": "Carbs",
     "protein": "Protein",
     "fats": "Fats",
-    "m": "G"
+    "m": "G",
+    "no_results": "No recipes found"
   },
   "v2": {
     "hero-v2": {

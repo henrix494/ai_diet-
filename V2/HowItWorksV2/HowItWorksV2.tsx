@@ -40,7 +40,7 @@ const HowItWorksV2 = () => {
       </svg>
 
       <div className="relative z-10 max-w-4xl mx-auto">
-        <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-12 text-gray-800">
+        <h2 className="text-center text-4xl md:text-5xl  mb-12 text-gray-800">
           {t("title")}
         </h2>
         <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
