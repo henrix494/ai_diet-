@@ -37,7 +37,7 @@ export default function ChatHero({
       id="seeHowItWorks"
       ref={ref}
       dir={locale === "he" ? "rtl" : "ltr"}
-      className="flex justify-center mt-20 max-lg:hidden min-h-[570px] overflow-hidden"
+      className="flex justify-center mt-20 max-lg:hidden min-h-[570px] "
     >
       <div
         className={`lg:w-[50vw] bg-base-300 rounded-xl p-6 shadow-2xl transition-all duration-700 ${

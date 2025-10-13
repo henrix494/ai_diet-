@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { locale: string } }) {
   return (
     <div className=" ">
       <StatsContainer />
-      <div className="border-b-2 border-[#f1f1f15b]">
+      <div className=" border-[#f1f1f15b]">
         <Chat token={token} locale={locale} />
       </div>
       <div className="border-b-2 border-[#f1f1f15b]">

@@ -1,6 +1,6 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamObject } from "ai";
-
+import { NextResponse } from "next/server";
 import { fetchMutation, fetchQuery } from "convex/nextjs";
 
 import { api } from "@/convex/_generated/api";
@@ -8,8 +8,15 @@ import { z } from "zod";
 
 export async function POST(req: Request) {
   const body = await req.json();
+  console.log(body);
 
-  console.log(body.calories);
+  if (body.recipe === " " || !body.recipe) {
+    return NextResponse.json({
+      status: 403,
+      msg: "recipe body is required",
+    });
+  }
+
   const google = createGoogleGenerativeAI({
     apiKey: process.env.GOOGLE_API_KEY,
   });
@@ -91,7 +98,7 @@ export async function POST(req: Request) {
   });
 
   const result = await streamObject({
-    model: google("gemini-1.5-flash"),
+    model: google("gemini-flash-latest"),
     schema:
       body.locale === "he"
         ? recipe_schema_hebrew_with_calories

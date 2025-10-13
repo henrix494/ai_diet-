@@ -12,6 +12,5 @@ export const useMousePosOnEle = (refEle: HTMLDivElement) => {
       y: e.clientY,
     });
   });
-  console.log(refEle);
   return pos;
 };

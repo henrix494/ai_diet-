@@ -23,7 +23,6 @@ export const addRecipeHandler = async (
   recipe: recipeTypes,
   token: string | undefined
 ) => {
-  console.log(recipe);
   if (!token) return NextResponse.json({ msg: "No Token", status: 401 });
   await fetchMutation(
     api.tasks.createRecipe,

@@ -26,7 +26,7 @@ export default function Chat({
   const [isCaloriesClicked, setIsCaloriesClicked] = useState<boolean>(false);
   const [calories, setCalories] = useState<number | null>(null);
   const [recipe, setRecipe] = useState<string | null>(null);
-
+  const [isFinished, setIsFinished] = useState<Boolean>(false);
   const handleCaloreClick = () => {
     setIsCaloriesClicked((prev) => !prev);
     if (isCaloriesClicked) setCalories(null);
@@ -107,6 +107,7 @@ export default function Chat({
         ? recipe_schema_hebrew_with_calories
         : recipe_schema_english_with_calories,
     onFinish(event) {
+      setIsFinished(true);
       addRecipeHandler(event.object as recipeTypes, token);
       setIsok(true);
       setTimeout(() => {
@@ -117,7 +118,7 @@ export default function Chat({
 
   return (
     <div
-      className="flex justify-center pb-8 mt-10 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-xl border border-gray-200"
+      className="flex justify-center pb-8 mt-10 bg-gradient-to-br  rounded-3xl  "
       dir={locale === "he" ? "rtl" : "ltr"}
     >
       {/* Toasts */}
@@ -136,7 +137,7 @@ export default function Chat({
         </div>
       </div>
       {/* Main Card */}
-      <div className="w-full max-w-3xl bg-white/80 rounded-2xl shadow-2xl border border-gray-200 p-0 md:p-10">
+      <div className="w-full max-w-3xl bg-white/80 rounded-2xl shadow-2xl  p-0 md:p-10">
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -151,77 +152,88 @@ export default function Chat({
           }}
         >
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:justify-around items-center mb-8 text-orange-500 font-extrabold text-2xl md:text-3xl space-y-4 md:space-y-0 md:space-x-4">
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-gray-400">{t("timeToCook")}</span>
-              <span>{object?.cookTime || "N/A"}</span>
+          <div className={`${!isFinished && "hidden"}`}>
+            <div className="flex flex-col md:flex-row md:justify-around items-center mb-8 text-orange-500 font-extrabold text-2xl md:text-3xl space-y-4 md:space-y-0 md:space-x-4">
+              <div>
+                <div className="text-center md:flex-1 text-3xl md:text-4xl font-bold text-gray-800">
+                  <span>{object?.title}</span>
+                </div>
+                <div className="flex justify-between mt-10">
+                  <div className="flex flex-col items-center">
+                    <span className="text-sm text-gray-400">
+                      {t("timeToCook")}
+                    </span>
+                    <span>{object?.cookTime || "N/A"}</span>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <span className="text-sm text-gray-400">
+                      {t("serving")}
+                    </span>
+                    <span>{object?.servings || "N/A"}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="text-center md:flex-1 text-3xl md:text-4xl font-bold text-gray-800">
-              <span>{object?.title}</span>
+            {/* Ingredients */}
+            <div className="space-y-4">
+              <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
+                {t("items")}
+              </h3>
+              {object?.ingredients?.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col md:flex-row justify-between items-center text-lg text-gray-700 bg-gray-100 px-4 md:px-5 py-2 md:py-3 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200"
+                >
+                  <p className="font-medium">{item?.name}</p>
+                  <p className="text-gray-500">{item?.quantity}</p>
+                </div>
+              ))}
             </div>
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-gray-400">{t("serving")}</span>
-              <span>{object?.servings || "N/A"}</span>
+            {/* Instructions */}
+            <div className="mt-8 md:mt-10 space-y-3 md:space-y-4 text-gray-700">
+              <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
+                {t("howTo")}
+              </h3>
+              {object?.instructions?.map((item, index) => (
+                <p
+                  key={index}
+                  className="bg-gray-100 p-3 md:p-4 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200"
+                >
+                  {item}
+                </p>
+              ))}
             </div>
-          </div>
-          {/* Ingredients */}
-          <div className="space-y-4">
-            <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
-              {t("items")}
-            </h3>
-            {object?.ingredients?.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col md:flex-row justify-between items-center text-lg text-gray-700 bg-gray-100 px-4 md:px-5 py-2 md:py-3 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200"
-              >
-                <p className="font-medium">{item?.name}</p>
-                <p className="text-gray-500">{item?.quantity}</p>
-              </div>
-            ))}
-          </div>
-          {/* Instructions */}
-          <div className="mt-8 md:mt-10 space-y-3 md:space-y-4 text-gray-700">
-            <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
-              {t("howTo")}
-            </h3>
-            {object?.instructions?.map((item, index) => (
-              <p
-                key={index}
-                className="bg-gray-100 p-3 md:p-4 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200"
-              >
-                {item}
-              </p>
-            ))}
-          </div>
-          {/* Nutrition */}
-          <div className="mt-8 md:mt-10 space-y-6 md:space-y-8 text-gray-700">
-            <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
-              {t("nutritional_facts")}
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
-                <span className="text-sm text-gray-400">{t("calories")}</span>
-                <span className="text-xl md:text-2xl font-bold">
-                  {object?.calories || "N/A"}
-                </span>
-              </div>
-              <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
-                <span className="text-sm text-gray-400">{t("carbs")}</span>
-                <span className="text-xl md:text-2xl font-bold">
-                  {object?.carbs || "N/A"}
-                </span>
-              </div>
-              <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
-                <span className="text-sm text-gray-400">{t("fats")}</span>
-                <span className="text-xl md:text-2xl font-bold">
-                  {object?.fats || "N/A"}
-                </span>
-              </div>
-              <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
-                <span className="text-sm text-gray-400">{t("protein")}</span>
-                <span className="text-xl md:text-2xl font-bold">
-                  {object?.protein || "N/A"}
-                </span>
+            {/* Nutrition */}
+            <div className="mt-8 md:mt-10 space-y-6 md:space-y-8 text-gray-700">
+              <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
+                {t("nutritional_facts")}
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                  <span className="text-sm text-gray-400">{t("calories")}</span>
+                  <span className="text-xl md:text-2xl font-bold">
+                    {object?.calories || "N/A"}
+                  </span>
+                </div>
+                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                  <span className="text-sm text-gray-400">{t("carbs")}</span>
+                  <span className="text-xl md:text-2xl font-bold">
+                    {object?.carbs || "N/A"}
+                  </span>
+                </div>
+                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                  <span className="text-sm text-gray-400">{t("fats")}</span>
+                  <span className="text-xl md:text-2xl font-bold">
+                    {object?.fats || "N/A"}
+                  </span>
+                </div>
+                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                  <span className="text-sm text-gray-400">{t("protein")}</span>
+                  <span className="text-xl md:text-2xl font-bold">
+                    {object?.protein || "N/A"}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -233,7 +245,7 @@ export default function Chat({
               </div>
             )}
             <input
-              className="border border-gray-300 rounded-xl shadow-xl p-4 w-full max-w-xl focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+              className=" rounded-xl shadow-xl p-4 w-full max-w-xl focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
               placeholder={isLoading ? "..." : t("question")}
               onChange={(e) => setRecipe(e.target.value)}
               disabled={isLoading}
@@ -245,7 +257,7 @@ export default function Chat({
                 type="number"
                 value={calories as number}
                 min={1}
-                className="border border-gray-300 rounded-xl shadow-xl p-4 w-full focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                className=" rounded-xl  p-4 w-full focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
                 placeholder={isLoading ? "..." : t("number_of_calories")}
                 onChange={handleCaloreChange}
                 disabled={isLoading}

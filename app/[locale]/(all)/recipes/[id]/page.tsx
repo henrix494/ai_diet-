@@ -59,19 +59,19 @@ export default function RecipePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black p-5">
-      <h2 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mb-10">
+    <div className="min-h-screen  p-5  ">
+      <h2 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mb-12 mt-10">
         Recipe Details
       </h2>
 
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex flex-wrap justify-center gap-8 ">
         {recipe.map((item) => (
           <div
             key={item._id}
-            className="glass-effect rounded-xl shadow-lg p-6 lg:w-[40vw] w-full hover:scale-105 transition-transform duration-300"
+            className="glass-effect rounded-xl shadow-lg p-6 lg:w-[40vw] w-full hover:scale-105 transition-transform duration-300 font-bold"
           >
             <div className="flex justify-between items-center mb-5">
-              <h1 className="text-3xl font-bold text-white">{item.title}</h1>
+              <h1 className="text-3xl font-bold ">{item.title}</h1>
               <p className="text-sm text-gray-400">
                 {item.cookTime} • {item.servings} servings
               </p>
@@ -82,7 +82,7 @@ export default function RecipePage() {
               <h3 className="text-lg font-semibold text-pink-300 mb-3">
                 Ingredients
               </h3>
-              <ul className="space-y-2 text-gray-200">
+              <ul className="space-y-2 ">
                 {item.ingredients.map((ingredient, idx) => (
                   <li key={idx} className="flex justify-between items-center">
                     <span>{ingredient.name}</span>
@@ -99,7 +99,7 @@ export default function RecipePage() {
               <h3 className="text-lg font-semibold text-pink-300 mb-3">
                 Instructions
               </h3>
-              <ol className="list-decimal pl-5 space-y-3 text-gray-200">
+              <ol className="list-decimal pl-5 space-y-3 ">
                 {item.instructions.map((instruction, idx) => (
                   <li key={idx}>{instruction}</li>
                 ))}

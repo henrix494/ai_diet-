@@ -15,12 +15,12 @@ const NavBarV2 = () => {
   ];
 
   return (
-    <nav className="bg-gray-50 shadow-md">
+    <nav className="bg-gray-50 shadow-md font-bold">
       <div className="flex justify-between items-center p-4 lg:p-6 text-black">
         {/* Logo */}
         <div>
           <Link href={"/"} className="text-2xl font-bold">
-            {t("title")}
+            {t("title").toUpperCase()}
           </Link>
         </div>
 
