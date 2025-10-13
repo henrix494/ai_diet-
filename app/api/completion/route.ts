@@ -5,6 +5,7 @@ import { fetchMutation, fetchQuery } from "convex/nextjs";
 
 import { api } from "@/convex/_generated/api";
 import { z } from "zod";
+export const maxDuration = 300;
 
 export async function POST(req: Request) {
   const body = await req.json();
