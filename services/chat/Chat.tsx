@@ -6,6 +6,7 @@ import { experimental_useObject as useObject } from "ai/react";
 import { addRecipeHandler, recipeTypes } from "@/actions/addRecipe";
 import { useTranslations } from "next-intl";
 import { z } from "zod";
+export const maxDuration = 300;
 
 export default function Chat({
   token,
