@@ -5,7 +5,8 @@
     "sign-in": "Sign in",
     "recipes": "Recipes",
     "favorites": "Favorites",
-    "home": "Home"
+    "home": "Home",
+    "change-leng": "Change Language"
   },
   "Hero": {
     "title": { "main": " The perfect recipe with", "try": "Try now!" },
@@ -87,7 +88,8 @@
     "protein": "Protein",
     "fats": "Fats",
     "m": "G",
-    "no_results": "No recipes found"
+    "no_results": "No recipes found",
+    "view":" View Details"
   },
   "v2": {
     "hero-v2": {

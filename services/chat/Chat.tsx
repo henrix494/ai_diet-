@@ -119,26 +119,33 @@ export default function Chat({
 
   return (
     <div
-      className="flex justify-center pb-8 mt-10 bg-gradient-to-br  rounded-3xl  "
+      className="min-h-screen flex items-center justify-center py-12 px-6 bg-gradient-to-br from-indigo-50 via-white to-orange-50"
       dir={locale === "he" ? "rtl" : "ltr"}
     >
-      {/* Toasts */}
+      {/* Toasts (top-right) */}
       <div
-        className={`fixed top-24 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${isOK ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        className={`fixed top-8 right-8 z-50 transition-transform duration-350 ${isOK ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0 pointer-events-none"}`}
       >
-        <div className="alert alert-success rounded-xl shadow-lg px-8 py-4 text-lg">
-          <span className="text-2xl">{t("add")}</span>
+        <div className="flex items-center gap-3 bg-emerald-500 text-white rounded-xl px-5 py-3 shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          <div className="font-semibold">{t("add")}</div>
         </div>
       </div>
       <div
-        className={`fixed top-24 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${isNotOK ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        className={`fixed top-8 right-8 z-40 transition-transform duration-350 ${isNotOK ? "translate-y-16 opacity-100" : "-translate-y-4 opacity-0 pointer-events-none"}`}
       >
-        <div className="alert alert-error rounded-xl shadow-lg px-8 py-4 text-lg">
-          <span className="text-2xl">{t("not_added")}</span>
+        <div className="flex items-center gap-3 bg-red-500 text-white rounded-xl px-5 py-3 shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <div className="font-semibold">{t("not_added")}</div>
         </div>
       </div>
-      {/* Main Card */}
-      <div className="w-full max-w-3xl bg-white/80 rounded-2xl shadow-2xl  p-0 md:p-10">
+
+      {/* Main Card (glass) */}
+      <div className="w-full max-w-3xl bg-white/60 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-10 border border-white/30">
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -152,146 +159,145 @@ export default function Chat({
             });
           }}
         >
-          {/* Header */}
-          <div className={`${!isFinished && "hidden"}`}>
-            <div className="flex flex-col md:flex-row md:justify-around items-center mb-8 text-orange-500 font-extrabold text-2xl md:text-3xl space-y-4 md:space-y-0 md:space-x-4">
-              <div>
-                <div className="text-center md:flex-1 text-3xl md:text-4xl font-bold text-gray-800">
-                  <span>{object?.title}</span>
+          {/* Header (results) */}
+          <div className={`${!isFinished ? "hidden" : "block"}`}>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+              <div className="flex items-center gap-4">
+                <div className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-gray-100 shadow-inner">
+                  {user?.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={user?.imageUrl} alt="avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">🍽️</div>
+                  )}
                 </div>
-                <div className="flex justify-between mt-10">
-                  <div className="flex flex-col items-center">
-                    <span className="text-sm text-gray-400">
-                      {t("timeToCook")}
-                    </span>
-                    <span>{object?.cookTime || "N/A"}</span>
-                  </div>
+                <div>
+                  <div className="text-2xl md:text-3xl font-extrabold text-gray-800">{object?.title}</div>
+                </div>
+              </div>
 
-                  <div className="flex flex-col items-center">
-                    <span className="text-sm text-gray-400">
-                      {t("serving")}
-                    </span>
-                    <span>{object?.servings || "N/A"}</span>
-                  </div>
+              <div className="flex gap-4">
+                <div className="flex flex-col items-center bg-white rounded-xl px-4 py-3 shadow-sm border">
+                  <span className="text-sm text-gray-400">{t("timeToCook")}</span>
+                  <span className="font-bold">{object?.cookTime || "N/A"}</span>
+                </div>
+                <div className="flex flex-col items-center bg-white rounded-xl px-4 py-3 shadow-sm border">
+                  <span className="text-sm text-gray-400">{t("serving")}</span>
+                  <span className="font-bold">{object?.servings || "N/A"}</span>
                 </div>
               </div>
             </div>
+
             {/* Ingredients */}
-            <div className="space-y-4">
-              <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
-                {t("items")}
-              </h3>
-              {object?.ingredients?.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col md:flex-row justify-between items-center text-lg text-gray-700 bg-gray-100 px-4 md:px-5 py-2 md:py-3 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200"
-                >
-                  <p className="font-medium">{item?.name}</p>
-                  <p className="text-gray-500">{item?.quantity}</p>
-                </div>
-              ))}
+            <div className="mb-6">
+              <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-700">{t("items")}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {object?.ingredients?.map((item, index) => (
+                  <div key={index} className="flex justify-between items-center bg-white rounded-lg p-3 shadow transition-transform hover:translate-y-[-2px]">
+                    <p className="font-medium text-gray-700">{item?.name}</p>
+                    <p className="text-sm text-gray-500">{item?.quantity}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+
             {/* Instructions */}
-            <div className="mt-8 md:mt-10 space-y-3 md:space-y-4 text-gray-700">
-              <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
-                {t("howTo")}
-              </h3>
-              {object?.instructions?.map((item, index) => (
-                <p
-                  key={index}
-                  className="bg-gray-100 p-3 md:p-4 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200"
-                >
-                  {item}
-                </p>
-              ))}
+            <div className="mb-6">
+              <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-700">{t("howTo")}</h3>
+              <div className="space-y-3">
+                {object?.instructions?.map((item, index) => (
+                  <div key={index} className="bg-white rounded-lg p-3 shadow-sm">
+                    <div className="text-gray-700">{item}</div>
+                  </div>
+                ))}
+              </div>
             </div>
+
             {/* Nutrition */}
-            <div className="mt-8 md:mt-10 space-y-6 md:space-y-8 text-gray-700">
-              <h3 className="text-xl md:text-2xl text-gray-700 font-semibold mb-4">
-                {t("nutritional_facts")}
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+            <div className="mt-4">
+              <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-700">{t("nutritional_facts")}</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
                   <span className="text-sm text-gray-400">{t("calories")}</span>
-                  <span className="text-xl md:text-2xl font-bold">
-                    {object?.calories || "N/A"}
-                  </span>
+                  <span className="text-xl font-bold">{object?.calories || "N/A"}</span>
                 </div>
-                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                <div className="bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
                   <span className="text-sm text-gray-400">{t("carbs")}</span>
-                  <span className="text-xl md:text-2xl font-bold">
-                    {object?.carbs || "N/A"}
-                  </span>
+                  <span className="text-xl font-bold">{object?.carbs || "N/A"}</span>
                 </div>
-                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                <div className="bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
                   <span className="text-sm text-gray-400">{t("fats")}</span>
-                  <span className="text-xl md:text-2xl font-bold">
-                    {object?.fats || "N/A"}
-                  </span>
+                  <span className="text-xl font-bold">{object?.fats || "N/A"}</span>
                 </div>
-                <div className="flex flex-col items-center bg-gray-100 p-4 md:p-6 rounded-lg shadow-sm hover:bg-orange-100 transition-colors duration-200">
+                <div className="bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
                   <span className="text-sm text-gray-400">{t("protein")}</span>
-                  <span className="text-xl md:text-2xl font-bold">
-                    {object?.protein || "N/A"}
-                  </span>
+                  <span className="text-xl font-bold">{object?.protein || "N/A"}</span>
                 </div>
               </div>
             </div>
           </div>
+
           {/* Loader & Inputs */}
-          <div className="flex flex-col items-center gap-7 mt-10 w-full ">
+          <div className="flex flex-col items-center gap-6 mt-8 w-full">
             {isLoading && (
-              <div className="flex items-center justify-center w-full">
-                <span className="loading loading-spinner loading-lg"></span>
+              <div className="w-full max-w-xl">
+                <div className="h-2 w-full rounded-full overflow-hidden bg-gray-200">
+                  <div className="h-full w-1/3 bg-gradient-to-r from-orange-400 via-pink-500 to-indigo-500 animate-[marquee_1.8s_linear_infinite]"></div>
+                </div>
+                <div className="flex items-center justify-center mt-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white shadow-lg animate-pulse">AI</div>
+                </div>
               </div>
             )}
+
             <input
-              className=" rounded-xl shadow-xl p-4 w-full max-w-xl focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+              className="rounded-2xl shadow-lg p-4 w-full max-w-xl focus:outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-gray-400 bg-white"
               placeholder={isLoading ? "..." : t("question")}
               onChange={(e) => setRecipe(e.target.value)}
               disabled={isLoading}
             />
-            <div
-              className={`${isCaloriesClicked ? "block" : "hidden"} w-full max-w-xl`}
-            >
+
+            <div className={`${isCaloriesClicked ? "block" : "hidden"} w-full max-w-xl`}>
               <input
                 type="number"
                 value={calories as number}
                 min={1}
-                className=" rounded-xl  p-4 w-full focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                className="rounded-2xl p-4 w-full focus:outline-none focus:ring-2 focus:ring-orange-400 transition bg-white"
                 placeholder={isLoading ? "..." : t("number_of_calories")}
                 onChange={handleCaloreChange}
                 disabled={isLoading}
               />
             </div>
-            <div className="form-control w-full max-w-xl flex flex-row items-center justify-center gap-3">
-              <label className="label cursor-pointer flex items-center gap-2">
-                <span className="label-text text-xl">{t("with_calories")}</span>
+
+            <div className="w-full max-w-xl flex items-center justify-between">
+              <label className="flex items-center gap-3">
+                <span className="text-lg font-medium">{t("with_calories")}</span>
                 <input
                   onChange={handleCaloreClick}
                   type="checkbox"
-                  className="checkbox checkbox-primary"
+                  className="w-5 h-5 rounded-md text-orange-500"
                   checked={isCaloriesClicked}
                   disabled={isLoading}
                 />
               </label>
-            </div>
-            <div className="flex justify-center gap-6 w-full">
-              <button
-                className="btn btn-accent px-10 text-xl rounded-xl shadow-md transition-all duration-200 hover:scale-105"
-                disabled={isLoading}
-                type="submit"
-              >
-                {t("send")}
-              </button>
-              <button
-                className="btn btn-warning px-10 text-xl rounded-xl shadow-md transition-all duration-200 hover:scale-105"
-                type="button"
-                onClick={stop}
-                disabled={!isLoading}
-              >
-                {t("stop")}
-              </button>
+
+              <div className="flex gap-4">
+                <button
+                  className={`px-6 py-3 rounded-2xl text-white font-semibold shadow-lg transition transform ${isLoading ? "opacity-60 cursor-not-allowed" : "hover:scale-105"} bg-gradient-to-r from-orange-400 to-pink-500`}
+                  disabled={isLoading}
+                  type="submit"
+                >
+                  {t("send")}
+                </button>
+                <button
+                  className="px-6 py-3 rounded-2xl font-semibold border border-gray-200 bg-white shadow-sm hover:bg-gray-50 disabled:opacity-50"
+                  type="button"
+                  onClick={stop}
+                  disabled={!isLoading}
+                >
+                  {t("stop")}
+                </button>
+              </div>
             </div>
           </div>
         </form>
